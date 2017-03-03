@@ -1,4 +1,4 @@
-const bluebird = require('bluebird'),
+const Promise = require('bluebird'),
     prefix = 'tracking:';
 
 // Convert a pair of ['tracking:A', tracking:'B', ...] , [1, 2, ...] arrays
@@ -13,7 +13,7 @@ const arraysToStatsMap = (keys, values) => new Map(
 class Tracking {
     constructor(api) {
         this.api = api;
-        this.redis = bluebird.promisifyAll(this.api.redis.clients.client);
+        this.redis = Promise.promisifyAll(this.api.redis.clients.client);
     }
 
     // Helper to get all current entries

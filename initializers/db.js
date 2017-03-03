@@ -5,8 +5,7 @@ const DataTypes = Sequelize.DataTypes;
 const VariantModel = (db) => db.define('variant', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: DataTypes.STRING,
-    tastes_like: DataTypes.STRING,
-    is_tasty: DataTypes.BOOLEAN
+    options: DataTypes.STRING,
 });
 
 class DB {
@@ -18,10 +17,6 @@ class DB {
             Variant: VariantModel(this.sequelize),
         };
     }
-
-    init() {
-        return this.sequelize.sync();
-    }
 }
 
 module.exports = {
@@ -32,7 +27,7 @@ module.exports = {
 
         api.db = new DB(api);
 
-        api.db.init()
+        api.db.sequelize.sync({ force: true })
             .then(() => next())
             .catch(next);
     }
