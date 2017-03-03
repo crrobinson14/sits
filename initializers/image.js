@@ -13,36 +13,52 @@ class Image {
         this.api = api;
     }
 
-    hashUrl(url, variant) {
+    // Combine a URL:Variant combination into a hash for filename storage
+    hashUrl(url, variantId) {
         return crypto
             .createHmac('sha256', this.api.config.image.hashKey)
-            .update(variant + ':' + url)
+            .update(variantId + ':' + url)
             .digest('hex');
     }
 
+    // Get the filesystem storage path for a given hash object
     //noinspection JSMethodCanBeStatic
     assetPath(hash) {
         return path.join(api.config.image.storage, hash.substring(0, 1), hash + '.jpg');
     }
 
-    downloadAndProcess(url, variant, outPath) {
-        return this.api.tracking.track(variant).then(() => new Promise((resolve, reject) => {
-            let r = request(url, api.config.image.requestOptions);
-            gm(r)
-                .out('-resize', '300x200')
-                .write(outPath, err => {
-                    err ? reject(err) : resolve(outPath)
-                });
+    // Make sure a variant is valid, track a hit against it, and return its data
+    getAndTrackVariant(variantId) {
+        return this.api.tracking.track(variantId).then(() => this.api.db.getVariant(variantId));
+    }
+
+    // Download a remote image, and convert it to a stored output file
+    downloadAndProcess(url, variantId, outPath) {
+        return this.getAndTrackVariant(variantId).then(variant => new Promise((resolve, reject) => {
+            let gmRequest = gm(request(url, api.config.image.requestOptions)),
+                transforms = variant.transforms.split(' ');
+
+            // GM expects us to call .out() with (option, value) pairs.
+            while (transforms.length >= 2) {
+                let option = transforms.shift();
+                let value = transforms.shift();
+                gmRequest.out(option, value);
+            }
+
+            // Produce the final output file
+            gmRequest.write(outPath, err => err ? reject(err) : resolve(outPath));
         }));
     }
 
-    convert(url, variant) {
-        let hash = this.hashUrl(url, variant),
+    // Convert a URL to a variant. If already downloaded, returns stored asset.
+    // If not yet downloaded, calls `downloadAndProcess` to do so.
+    convert(url, variantId) {
+        let hash = this.hashUrl(url, variantId),
             path = this.assetPath(hash);
 
         return accessAsync(path, fs.constants.R_OK)
             .then(() => path)
-            .catch(() => this.downloadAndProcess(url, variant, path));
+            .catch(() => this.downloadAndProcess(url, variantId, path));
     }
 }
 

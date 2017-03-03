@@ -17,6 +17,8 @@ class DB {
         };
     }
 
+    // Get a variant's record by its ID
+    //noinspection JSMethodCanBeStatic
     getVariant(id) {
         return api.models.Variant.findById(id);
     }
