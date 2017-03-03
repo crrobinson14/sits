@@ -25,20 +25,25 @@ class Image {
         return path.join(api.config.image.storage, hash.substring(0, 1), hash + '.jpg');
     }
 
+    downloadAndProcess(url, variant, outPath) {
+        console.log('Processing', url, variant, outPath);
+        return this.api.tracking.track(variant).then(() => new Promise((resolve, reject) => {
+            let r = request(url, api.config.image.requestOptions);
+            gm(r)
+                .out('-resize', '300x200')
+                .write(outPath, err => {
+                    err ? reject(err) : resolve(outPath)
+                });
+        }));
+    }
+
     convert(url, variant) {
         let hash = this.hashUrl(url, variant),
             path = this.assetPath(hash);
 
-        return accessAsync(path, fs.constants.R_OK).then(() => {
-            return path;
-
-        }).catch(() => {
-            gm(request(url)).write(path, err => {
-                if (!err) {
-                    console.log('done');
-                }
-            });
-        });
+        return accessAsync(path, fs.constants.R_OK)
+            .then(() => path)
+            .catch(() => this.downloadAndProcess(url, variant, path));
     }
 }
 
