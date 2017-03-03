@@ -5,7 +5,7 @@ const DataTypes = Sequelize.DataTypes;
 const VariantModel = (db) => db.define('variant', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: DataTypes.STRING,
-    options: DataTypes.STRING,
+    transforms: DataTypes.STRING,
 });
 
 class DB {

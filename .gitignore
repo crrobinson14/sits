@@ -1,5 +1,6 @@
 .idea/
 log/
+pids/
 public/images/
 
 node_modules
