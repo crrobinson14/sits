@@ -9,3 +9,6 @@ Apache-2.0
     npm install --save actionhero sequelize sqlite3
     actionhero generate
 
+
+
+Fix logger docs

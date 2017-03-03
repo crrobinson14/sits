@@ -1,6 +1,6 @@
 .idea/
 log/
-db/
 
 node_modules
 *.log
+*.sqlite

@@ -1,34 +1,35 @@
 {
-  "name": "sits",
-  "version": "1.0.0",
-  "description": "Simple Image Thumbnail Service",
-  "main": "index.js",
-  "scripts": {
-    "test": "cross-env NODE_ENV=test mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/crrobinson14/sits.git"
-  },
-  "keywords": [
-    "actionhero",
-    "image",
-    "thumbnail"
-  ],
-  "author": "Chad Robinson",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/crrobinson14/sits/issues"
-  },
-  "homepage": "https://github.com/crrobinson14/sits#readme",
-  "dependencies": {
-    "actionhero": "^16.0.2",
-    "bluebird": "^3.4.7",
-    "sequelize": "^3.30.2",
-    "sqlite3": "^3.1.8"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "dirty-chai": "^1.2.2"
-  }
+    "name": "sits",
+    "version": "1.0.0",
+    "description": "Simple Image Thumbnail Service",
+    "main": "index.js",
+    "scripts": {
+        "test": "cross-env NODE_ENV=test mocha",
+        "start": "node ./node_modules/.bin/actionhero"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/crrobinson14/sits.git"
+    },
+    "keywords": [
+        "actionhero",
+        "image",
+        "thumbnail"
+    ],
+    "author": "Chad Robinson",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/crrobinson14/sits/issues"
+    },
+    "homepage": "https://github.com/crrobinson14/sits#readme",
+    "dependencies": {
+        "actionhero": "^16.0.2",
+        "bluebird": "^3.4.7",
+        "sequelize": "^3.30.2",
+        "sqlite3": "^3.1.8"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "dirty-chai": "^1.2.2"
+    }
 }

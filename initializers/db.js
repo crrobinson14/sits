@@ -1,54 +1,30 @@
 const Sequelize = require('sequelize');
 
 class DB {
-    constructor(api) {
+    constructor(api, next) {
         this.api = api;
 
-        this.sequelize = new Sequelize(null, null, null, api.config.db);
+        let db = this.sequelize = new Sequelize(null, null, null, api.config.db);
+        const DataTypes = db.Sequelize.DataTypes;
+
+        api.models = {
+            Variant: db.define('variant', {
+                id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+                name: DataTypes.STRING,
+                tastes_like: DataTypes.STRING,
+                is_tasty: DataTypes.BOOLEAN
+            }),
+        };
+
+        this.sequelize
+            .sync({ force: true })
+            .then(() => next())
+            .catch(next);
     }
 }
 
 module.exports = {
-    loadPriority: 1000,
-    startPriority: 1000,
-    stopPriority: 1000,
-
     initialize: function(api, next) {
-        api.db = new DB();
-        next();
+        api.db = new DB(api, next);
     }
 };
-
-
-exports.sqlite = function(api, next) {
-    var sqlize = new Sequelize(null, null, null, api.config.sqlite);
-
-    api.sqlite = {};
-
-    api.sqlite._start = function(api, next) {
-
-        api.models = {
-            Meat: sqlize.import(__dirname + '/../models/Meat.js')
-        };
-
-        sqlize
-            .sync()
-            .then(syncSuccess, syncError);
-
-        function syncSuccess() {
-            api.log('Succesfully synced DB!');
-            next();
-        }
-
-        function syncError(ex) {
-            api.log('Error while executing DB sync: ' + ex.message, 'error');
-            process.exit();
-        }
-    };
-
-    api.sqlite._stop = function(api, next) {
-        next();
-    };
-
-    next();
-}
