@@ -1,4 +1,9 @@
 describe('Data Storage', () => {
+    const clearData = () => api.models.Variant.truncate();
+
+    before(clearData);
+    after(clearData);
+
     it('Can save a Variant record', () => api.models.Variant.create({
         name: 'Test Variant'
     }));

@@ -20,6 +20,8 @@ module.exports.default = {
                 'plugin': [path.join(__dirname, '/../node_modules')],
                 'locale': [path.join(__dirname, '/../locales')]
             },
+
+            secretApiKey: 'CHANGEME',
         }
     }
 };

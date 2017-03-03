@@ -116,3 +116,20 @@ to pre-cache it.
 The calls marked with a [*] will require an API key to complete. For now,
 we'll set the expected API key in a config file, but this could obviously
 be made more generic in the future.
+
+## Installation and Usage
+
+SITS uses GraphicsMagick for image manipulations. Please make sure you
+install the [prerequisites](https://github.com/aheckmann/gm#getting-started)
+before you proceed.
+
+After that a simple `npm install` followed by an `npm start` is enough
+to start the basic server. By default, the server will run on port 8080,
+which you can change either by editing config/servers/web.js or setting
+PORT when starting the server:
+
+    PORT=3000 npm start
+
+You could then make an API call to create a simple scale-and-crop
+variant with a JPEG export:
+

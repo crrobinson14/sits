@@ -1,8 +1,3 @@
-// NOTE: The way we're syncing our models will wipe out the saved data every run!
-// SQLite in this mode is not server-based anyway. This demo isn't about "how to
-// use SQLite in ActionHero". We're just using SQLite here to support the rest of
-// the demo.
-
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
 
@@ -25,12 +20,16 @@ class DB {
     }
 
     init() {
-        return this.sequelize.sync({ force: true });
+        return this.sequelize.sync();
     }
 }
 
 module.exports = {
     initialize: function(api, next) {
+        if (api.config.secretApiKey === 'CHANGEME') {
+            api.log('You must change config.api.secretApiKey before using this in production!', 'error');
+        }
+
         api.db = new DB(api);
 
         api.db.init()

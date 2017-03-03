@@ -4,7 +4,7 @@ const toConsole = (api, winston) => new (winston.transports.Console)({
 });
 
 const toFile = (api, winston) => new (winston.transports.File)({
-    filename: './log/' + api.pids.title + '.log',
+    filename: './log/actionhero.log',
     level: 'info',
     timestamp: true,
 });
