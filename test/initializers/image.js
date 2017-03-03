@@ -7,20 +7,20 @@ describe('Image Processing', () => {
             api.models.Variant.create(testData.variant)));
 
     it('Properly hashes URL:variant combinations', done => {
-        let hash = api.image.hashUrl(testData.url, testData.variant.name);
+        let hash = api.image.hashUrl(testData.url, testData.variant.id);
         expect(hash).to.equal(testData.hash);
         done();
     });
 
     it('Properly calculates asset paths', done => {
-        let path = api.image.assetPath(api.image.hashUrl(testData.url, testData.variant.name));
+        let path = api.image.assetPath(api.image.hashUrl(testData.url, testData.variant.id));
         expect(path).to.equal(require('path').join(api.config.image.storage, testData.path));
         done();
     });
 
     it('Can download and transform files', () => {
         let outputPath = path.join(api.config.image.storage, testData.path);
-        return api.image.downloadAndProcess(testData.url, testData.variant.name, outputPath).then(res => {
+        return api.image.downloadAndProcess(testData.url, testData.variant.id, outputPath).then(res => {
             // console.log(res);
         })
     });

@@ -26,7 +26,6 @@ class Image {
     }
 
     downloadAndProcess(url, variant, outPath) {
-        console.log('Processing', url, variant, outPath);
         return this.api.tracking.track(variant).then(() => new Promise((resolve, reject) => {
             let r = request(url, api.config.image.requestOptions);
             gm(r)

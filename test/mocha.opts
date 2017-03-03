@@ -1,5 +1,6 @@
 --recursive
 --reporter spec
---timeout 30000
+--slow 5000
+--timeout 10000
 --require test/bootstrap
 test

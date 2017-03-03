@@ -3,7 +3,7 @@
     "hash": "f4d3238a2d67624358e02d9c24e77aad5b9ddf2d34b895fd39e2b50a73ed5cc0",
     "path": "f/f4d3238a2d67624358e02d9c24e77aad5b9ddf2d34b895fd39e2b50a73ed5cc0.jpg",
     "variant": {
-        "name": "testvariant",
+        "id": "testvariant",
         "transforms": "-geometry 200x200"
     }
 }

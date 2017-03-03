@@ -3,9 +3,8 @@ const DataTypes = Sequelize.DataTypes;
 
 // We only need one model for now
 const VariantModel = (db) => db.define('variant', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: DataTypes.STRING,
-    transforms: DataTypes.STRING,
+    id: { type: DataTypes.STRING, primaryKey: true },
+    transforms: { type: DataTypes.STRING },
 });
 
 class DB {
@@ -16,6 +15,10 @@ class DB {
         api.models = {
             Variant: VariantModel(this.sequelize),
         };
+    }
+
+    getVariant(id) {
+        return api.models.Variant.findById(id);
     }
 }
 
