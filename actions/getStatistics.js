@@ -1,11 +1,10 @@
 exports.action = {
     name: 'getStatistics',
-    description: 'Get the saved usage statistics',
+    description: 'Get the saved usage statistics.',
+    sitsOptions: { checkApiKey: true },
     inputs: {
-        apiKey: { required: false },
         clear: { required: false },
     },
-
     run: function(api, data, next) {
         let error = null;
 

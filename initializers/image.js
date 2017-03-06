@@ -35,7 +35,7 @@ class Image {
     // Download a remote image, and convert it to a stored output file
     downloadAndProcess(url, variantId, outPath) {
         return this.getAndTrackVariant(variantId).then(variant => new Promise((resolve, reject) => {
-            let gmRequest = gm(request(url, api.config.image.requestOptions)),
+            let gmRequest = gm(request(url, this.api.config.image.requestOptions)),
                 transforms = variant.transforms.split(' ');
 
             // GM expects us to call .out() with (option, value) pairs.

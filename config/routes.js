@@ -15,7 +15,6 @@ module.exports.default = {
         ],
 
         delete: [
-            { path: '/statistics', action: 'deleteStatistics' },
             { path: '/variants/:id', action: 'deleteVariant' },
         ],
     }),

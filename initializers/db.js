@@ -12,15 +12,21 @@ class DB {
         this.api = api;
         this.sequelize = new Sequelize(null, null, null, api.config.db);
 
-        api.models = {
+        this.models = api.models = {
             Variant: VariantModel(this.sequelize),
         };
+    }
+
+    // Get all current entry IDs.
+    getVariantIds() {
+        return this.models.Variant.findAll({ attributes: ['id'] })
+            .then(entries => entries.map(entry => entry.id));
     }
 
     // Get a variant's record by its ID
     //noinspection JSMethodCanBeStatic
     getVariant(id) {
-        return api.models.Variant.findById(id);
+        return this.models.Variant.findById(id);
     }
 
     // Helper to clean up error reporting in actions
@@ -29,7 +35,7 @@ class DB {
         let sqlError = (e.errors || [])[0] || { message: '-' };
 
         // We log the full error, but only give the caller a summary
-        api.log('Database error', 'error', e);
+        this.api.log('Database error', 'error', e);
         next(new Error('Database error: ' + e.message + ' (' + sqlError.message + ')'));
     }
 }

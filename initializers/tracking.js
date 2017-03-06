@@ -1,43 +1,30 @@
 const Promise = require('bluebird'),
-    prefix = 'tracking:';
-
-// Convert a pair of ['tracking:A', tracking:'B', ...] , [1, 2, ...] arrays
-// to {A:1, B:2, ...}
-const arraysToStatsMap = (keys, values) => new Map(
-    keys.map((key, index) => [
-        key.replace(prefix, ''), // 'tracking:A' => 'A'
-        +values[index]           // '1' => 1
-    ])
-);
+    prefix = 'variantusage:';
 
 class Tracking {
     constructor(api) {
         this.api = api;
-        this.redis = Promise.promisifyAll(this.api.redis.clients.client);
-    }
-
-    // Helper to get all current entries
-    allEntries() {
-        return this.redis.keysAsync(prefix + '*');
+        this.redis = Promise.promisifyAll(api.redis.clients.client);
     }
 
     // Record a call to a variant
-    track(variant) {
-        return this.redis.incrAsync(prefix + variant);
+    track(variantId) {
+        return this.redis.incrAsync(prefix + variantId);
     }
 
-    // Clear all variant stats
-    clear() {
-        return this.allEntries().then(keys => this.redis.delAsync(keys));
+    getStat(variantId, clear) {
+        let call = clear
+            ? this.redis.getsetAsync(api.config.tracking.variantPrefix + variantId, 0)
+            : this.redis.getAsync(api.config.tracking.variantPrefix + variantId);
+
+        return call.then(result => ([variantId, +result]));
     }
 
-    // Get all variant stats
-    get() {
-        return this.allEntries().then(keys => {
-            return (keys && keys.length > 0)
-                ? this.redis.mgetAsync(keys).then(values => arraysToStatsMap(keys, values))
-                : {};
-        });
+    // Get all variant stats, optionally clearing them as well
+    getAll(clear) {
+        return Promise
+            .map(this.api.db.getVariantIds(), variantId => this.getStat(variantId, clear))
+            .reduce((result, entry) => result.set(...entry), new Map());
     }
 }
 
