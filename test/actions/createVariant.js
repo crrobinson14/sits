@@ -1,6 +1,11 @@
 const testData = require('../testData.json');
 
 describe('Action: createVariant', () => {
+    const clearData = () => api.models.Variant.truncate();
+
+    before(clearData);
+    after(clearData);
+
     it('Requires an API key', done => {
         api.specHelper.runAction('createVariant', response => {
             expect(response.error).to.equal('Error: Missing required API key.');
@@ -27,6 +32,7 @@ describe('Action: createVariant', () => {
     it('Can create a simple variant', done => {
         let params = Object.assign({}, testData.variant, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('createVariant', params, response => {
+            expect(response.status).to.equal('OK');
             expect(response.variant.id).to.equal(testData.variant.id);
             expect(response.variant.transforms).to.equal(testData.variant.transforms);
             expect(response.variant.createdAt).to.not.be.undefined();
@@ -38,7 +44,7 @@ describe('Action: createVariant', () => {
     it('Blocks duplicate-variant creation attempts', done => {
         let params = Object.assign({}, testData.variant, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('createVariant', params, response => {
-            expect(response.error).to.equal('Error: Error creating variant: Validation error (id must be unique)');
+            expect(response.error).to.equal('Error: Database error: Validation error (id must be unique)');
             done();
         });
     });

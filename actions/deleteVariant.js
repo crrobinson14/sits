@@ -1,18 +1,23 @@
 exports.action = {
-  name: 'getVariants',
-  description: 'My Action',
-  blockedConnectionTypes: [],
-  outputExample: {},
-  matchExtensionMimeType: false,
-  version: 1.0,
-  toDocument: true,
-  middleware: [],
+    name: 'deleteVariant',
+    description: 'Delete a thumbnail variant.',
+    sitsOptions: { checkApiKey: true },
+    inputs: {
+        id: { required: true },
+    },
+    run: (api, data, next) => {
+        api.log('Deleting variant ' + data.params.id, 'info');
+        api.db.getVariant(data.params.id).then(variant => {
+            if (!variant) {
+                throw new Error('Invalid variant');
+            }
 
-  inputs: {},
+            return variant.destroy();
 
-  run: function (api, data, next) {
-    let error = null
-    // your logic here
-    next(error)
-  }
-}
+        }).then(() => {
+            data.response.status = 'OK';
+            next();
+
+        }).catch(e => api.db.reportActionError(next, e));
+    }
+};

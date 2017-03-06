@@ -22,6 +22,16 @@ class DB {
     getVariant(id) {
         return api.models.Variant.findById(id);
     }
+
+    // Helper to clean up error reporting in actions
+    //noinspection JSMethodCanBeStatic
+    reportActionError(next, e) {
+        let sqlError = (e.errors || [])[0] || { message: '-' };
+
+        // We log the full error, but only give the caller a summary
+        api.log('Database error', 'error', e);
+        next(new Error('Database error: ' + e.message + ' (' + sqlError.message + ')'));
+    }
 }
 
 module.exports = {

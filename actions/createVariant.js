@@ -24,10 +24,6 @@ exports.action = {
             data.response.variant = result.get({ plain: true });
             next();
 
-        }).catch(e => {
-            // We log the full error, but only give the caller a summary
-            api.log('Error creating variant', 'error', e);
-            next(new Error('Error creating variant: ' + e.message + ' (' + e.errors[0].message + ')'));
-        });
+        }).catch(e => api.db.reportActionError(next, e));
     }
 };

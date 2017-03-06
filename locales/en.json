@@ -1,3 +1,4 @@
 {
-	"%s is a required parameter for this action": "%s is a required parameter for this action"
+	"%s is a required parameter for this action": "%s is a required parameter for this action",
+	"unknown action or invalid apiVersion": "unknown action or invalid apiVersion"
 }
