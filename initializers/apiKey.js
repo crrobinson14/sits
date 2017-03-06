@@ -1,19 +1,16 @@
 module.exports = {
-    initialize: function(api, next) {
+    initialize: (api, next) => {
         api.actions.addMiddleware({
             name: 'API Key Checker',
             global: true,
-            priority: 1000,
-            preProcessor: function(data, next) {
+            preProcessor: (data, next) => {
                 let actionTemplate = api.actions.actions[data.action][data.params.apiVersion],
-                    sitsOptions = actionTemplate.sitsOptions || {};
+                    sitsOptions = actionTemplate.sitsOptions || {},
+                    keyIsValid = data.params.apiKey === api.config.general.secretApiKey;
 
-                // If this flag is not truthy, or we have the key, we're good to go.
-                if (!sitsOptions.checkApiKey || data.params.apiKey === api.config.general.secretApiKey) {
-                    next();
-                } else {
-                    next(new Error('Missing required API key.'));
-                }
+                next((!sitsOptions.checkApiKey || keyIsValid)
+                    ? undefined
+                    : new Error('Missing required API key.'));
             }
         });
 

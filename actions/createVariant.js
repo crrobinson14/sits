@@ -7,19 +7,10 @@ exports.action = {
         transforms: { required: true },
     },
     run: (api, data, next) => {
-        // NOTE: We do basically no error checking because we expect to only be supporting
-        // variant-creation from trusted (internal) sources!!! But this isn't as bad as it
-        // looks. The DB will prevent ID conflicts, and node-gm escapes transform args.
-        // What we would really want is sanity checking, like ID formats (no spaces, length
-        // limits, etc.) and transforms (length, expected format).
-        let variant = {
+        api.models.Variant.create({
             id: data.params.id,
             transforms: data.params.transforms,
-        };
-
-        api.log('Creating variant', 'info', variant);
-
-        api.models.Variant.create(variant).then(result => {
+        }).then(result => {
             data.response.status = 'OK';
             data.response.variant = result.get({ plain: true });
             next();

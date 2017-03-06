@@ -6,7 +6,6 @@ exports.action = {
         id: { required: true },
     },
     run: (api, data, next) => {
-        api.log('Deleting variant ' + data.params.id, 'info');
         api.db.getVariant(data.params.id).then(variant => {
             if (!variant) {
                 throw new Error('Invalid variant');

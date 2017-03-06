@@ -117,6 +117,13 @@ The calls marked with a [*] will require an API key to complete. For now,
 we'll set the expected API key in a config file, but this could obviously
 be made more generic in the future.
 
+NOTE: We do basically no error checking because we expect to only be
+supporting variant-creation from trusted (internal) sources!!! But this
+isn't as bad as it looks. The DB will prevent ID conflicts, and node-gm
+escapes transform args. What we would really want is sanity checking,
+like ID formats (no spaces, length limits, etc.) and transforms (length,
+ expected format).
+
 ## Installation and Usage
 
 SITS uses GraphicsMagick for image manipulations. Please make sure you

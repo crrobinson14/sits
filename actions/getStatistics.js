@@ -6,13 +6,11 @@ exports.action = {
         clear: { required: false },
     },
     run: function(api, data, next) {
-        let error = null;
+        api.tracking.getAll(data.params.clear === true).then(res => {
+            data.response.usage = res;
+            data.response.status = 'OK';
+            next();
 
-        api.redis.clients.client.get(notificationKey, (err, value) => {
-
-        });
-        api.redis.clients.client.set(notificationKey, 'shown', 'EX', 2 * 86400);
-
-        next(error);
+        }).catch(e => new Error(e.message));
     }
 };
