@@ -1,18 +1,14 @@
 exports.action = {
-  name: 'getVariants',
-  description: 'My Action',
-  blockedConnectionTypes: [],
-  outputExample: {},
-  matchExtensionMimeType: false,
-  version: 1.0,
-  toDocument: true,
-  middleware: [],
+    name: 'getVariants',
+    description: 'Get a list of all variants.',
+    sitsOptions: { checkApiKey: true },
+    inputs: {},
+    run: (api, data, next) => {
+        api.models.Variant.findAll({ order: ['id'] }).then(variants => {
+            data.response.variants = (variants || []).map(variant => variant.get({ plain: true }));
+            data.response.status = 'OK';
+            next();
 
-  inputs: {},
-
-  run: function (api, data, next) {
-    let error = null
-    // your logic here
-    next(error)
-  }
-}
+        }).catch(e => api.db.reportActionError(next, e));
+    }
+};
