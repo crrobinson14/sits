@@ -7,6 +7,8 @@ const toFile = (api, winston) => new (winston.transports.File)({
     filename: './log/actionhero.log',
     level: 'info',
     timestamp: true,
+    json: false,
+    options: { flags: 'w' },
 });
 
 module.exports.default = {

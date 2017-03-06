@@ -1,6 +1,6 @@
 const testData = require('../testData.json');
 
-describe('Data Storage', () => {
+describe('Initializer: DB', () => {
     const clearData = () => api.models.Variant.truncate();
 
     before(clearData);

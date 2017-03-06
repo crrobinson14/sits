@@ -1,4 +1,4 @@
-describe('Statistics Tracking', () => {
+describe('Initializer: Tracking', () => {
     it('Can record a usage of a variant', () => api.tracking.track('A'));
 
     it('Can get usage stats', () => Promise.all([

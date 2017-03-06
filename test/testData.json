@@ -1,7 +1,7 @@
 {
-    "url": "https://placeholdit.imgix.net/~text?txtsize=20&txt=TEST&w=100&h=100&fm=png",
-    "hash": "f4d3238a2d67624358e02d9c24e77aad5b9ddf2d34b895fd39e2b50a73ed5cc0",
-    "path": "f/f4d3238a2d67624358e02d9c24e77aad5b9ddf2d34b895fd39e2b50a73ed5cc0.jpg",
+    "url": "https://placeholdit.imgix.net/~text?txtsize=20&txt=TEST&w=200&h=200&fm=png",
+    "hash": "59a1d430cd5064c83b94289ebf656ca7a004fcf5bd1663b6a9dc2dc6615307ca",
+    "path": "5/59a1d430cd5064c83b94289ebf656ca7a004fcf5bd1663b6a9dc2dc6615307ca.jpg",
     "variant": {
         "id": "testvariant",
         "transforms": "-geometry 120x70^ -gravity center -extent 120x70"

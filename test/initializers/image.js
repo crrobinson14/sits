@@ -1,7 +1,7 @@
 const path = require('path'),
     testData = require('../testData.json');
 
-describe('Image Processing', () => {
+describe('Initializer: Image', () => {
     before(() =>
         api.models.Variant.truncate().then(() =>
             api.models.Variant.create(testData.variant)));
