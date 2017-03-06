@@ -8,7 +8,6 @@ exports.action = {
     run: function(api, data, next) {
         api.tracking.getAll(data.params.clear === true).then(res => {
             data.response.usage = res;
-            data.response.status = 'OK';
             next();
 
         }).catch(e => new Error(e.message));

@@ -20,7 +20,6 @@ describe('Action: getStatistics', () => {
             api.tracking.track('B'),
         ]).then(() => {
             api.specHelper.runAction('getStatistics', { apiKey: api.config.general.secretApiKey }, res => {
-                expect(res.status).to.equal('OK');
                 expect(res.usage.get('A')).to.equal(1);
                 expect(res.usage.get('B')).to.equal(1);
                 done();

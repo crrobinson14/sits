@@ -16,11 +16,8 @@ describe('Action: getVariants', () => {
     it('Can get the list of variants', done => {
         let uparams = Object.assign({}, testData.variant, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('createVariant', uparams, response => {
-            expect(response.status).to.equal('OK');
-
             let gparams = Object.assign({}, { id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
             api.specHelper.runAction('getVariants', gparams, response => {
-                expect(response.status).to.equal('OK');
                 expect(response.variants.length).to.equal(1);
 
                 expect(response.variants[0].id).to.equal(testData.variant.id);

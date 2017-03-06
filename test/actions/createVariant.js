@@ -32,7 +32,6 @@ describe('Action: createVariant', () => {
     it('Can create a simple variant', done => {
         let params = Object.assign({}, testData.variant, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('createVariant', params, response => {
-            expect(response.status).to.equal('OK');
             expect(response.variant.id).to.equal(testData.variant.id);
             expect(response.variant.transforms).to.equal(testData.variant.transforms);
             expect(response.variant.createdAt).to.not.be.undefined();
@@ -44,7 +43,7 @@ describe('Action: createVariant', () => {
     it('Blocks duplicate-variant creation attempts', done => {
         let params = Object.assign({}, testData.variant, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('createVariant', params, response => {
-            expect(response.error).to.equal('Error: Database error: Validation error (id must be unique)');
+            expect(response.error).to.equal('Error: Validation error');
             done();
         });
     });

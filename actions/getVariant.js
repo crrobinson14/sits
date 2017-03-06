@@ -13,7 +13,6 @@ exports.action = {
             }
 
             data.response.variant = variant.get({ plain: true });
-            data.response.status = 'OK';
             next();
 
         }).catch(e => api.db.reportActionError(next, e));

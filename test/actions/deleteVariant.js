@@ -22,22 +22,18 @@ describe('Action: deleteVariant', () => {
     });
 
     it('Tolerates/reports requests to delete non-existent variants', done => {
-        let params = Object.assign({}, { id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
+        let params = Object.assign({ id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('deleteVariant', params, response => {
-            expect(response.error).to.equal('Error: Database error: Invalid variant (-)');
+            expect(response.error).to.equal('Error: Invalid variant');
             done();
         });
     });
 
     it('Can delete a variant', done => {
-        let cparams = Object.assign({}, testData.variant, { apiKey: api.config.general.secretApiKey });
-        api.specHelper.runAction('createVariant', cparams, response => {
-            expect(response.status).to.equal('OK');
-
+        let cparams = Object.assign({ id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
+        api.specHelper.runAction('createVariant', cparams, () => {
             let dparams = Object.assign({}, { id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
-            api.specHelper.runAction('deleteVariant', dparams, response => {
-                expect(response.status).to.equal('OK');
-
+            api.specHelper.runAction('deleteVariant', dparams, () => {
                 api.db.getVariant(testData.variant.id).then(testRecord => {
                     expect(testRecord).to.be.null();
                     done();

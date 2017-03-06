@@ -6,7 +6,6 @@ exports.action = {
     run: (api, data, next) => {
         api.models.Variant.findAll({ order: ['id'] }).then(variants => {
             data.response.variants = (variants || []).map(variant => variant.get({ plain: true }));
-            data.response.status = 'OK';
             next();
 
         }).catch(e => api.db.reportActionError(next, e));

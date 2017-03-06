@@ -24,13 +24,11 @@ class DB {
     }
 
     // Get a variant's record by its ID
-    //noinspection JSMethodCanBeStatic
     getVariant(id) {
         return this.models.Variant.findById(id);
     }
 
     // Helper to clean up error reporting in actions
-    //noinspection JSMethodCanBeStatic
     reportActionError(next, e) {
         let sqlError = (e.errors || [])[0] || { message: '-' };
 

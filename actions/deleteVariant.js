@@ -6,17 +6,15 @@ exports.action = {
         id: { required: true },
     },
     run: (api, data, next) => {
-        api.db.getVariant(data.params.id).then(variant => {
-            if (!variant) {
-                throw new Error('Invalid variant');
-            }
+        api.db.getVariant(data.params.id)
+            .then(variant => {
+                if (!variant) {
+                    throw new Error('Invalid variant');
+                }
 
-            return variant.destroy();
-
-        }).then(() => {
-            data.response.status = 'OK';
-            next();
-
-        }).catch(e => api.db.reportActionError(next, e));
+                return variant.destroy();
+            })
+            .then(next)
+            .catch(e => next(e));
     }
 };
