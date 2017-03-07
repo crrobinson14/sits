@@ -22,14 +22,14 @@ that the images work and do not look broken.
 
 Assume an original image, available via an HTTP URL:
 
-![Original Image](https://github.com/crrobinson14/sits/raw/master/docs/original.png)
+![Original Image](https://raw.githubusercontent.com/crrobinson14/sits/master/docs/original.png)
 
 The classic thumbnailing approach uses a formatted URL to access a
 thumbnailing service and generate a variant of the original image. For
 example, we might ask our thumbnail service to create a 90x60
 scale-and-crop version of the original 100x100 source file:
 
-![Classic Approach](https://github.com/crrobinson14/actionhero/master/docs/classic.png)
+![Classic Approach](https://raw.githubusercontent.com/crrobinson14/sits/master/docs/classic.png)
 
 However, this naive approach has some problems. The most important is that
 it is easy to DDoS such a service - an attacker can simply ask for every
@@ -46,7 +46,7 @@ hitting our servers will have slower experiences, as they are the ones
 try to script this, but then we have to know every possible size ahead
 of time. What if we miss one?
 
-![Signed URLs](https://github.com/crrobinson14/actionhero/master/docs/signed.png)
+![Signed URLs](https://raw.githubusercontent.com/crrobinson14/sits/master/docs/signed.png)
 
 The typical "next step," supported in Thumbor and most other options, is
 to "sign" our URLs. This addresses the DDoS risk by only allowing pre-
@@ -54,7 +54,7 @@ approved operations... but falls short of addressing the entire issue.
 It's also clumsy to implement because we need code changes in both our
 servers and clients. What to do?
 
-![Variant Approach](https://github.com/crrobinson14/actionhero/master/docs/signed.png)
+![Variant Approach](https://raw.githubusercontent.com/crrobinson14/sits/master/docs/variant.png)
 
 Finally, we arrive at the variant-based approach, which is also used in
 Drupal's "Image Styles" module but we're delivering here as a packaged
