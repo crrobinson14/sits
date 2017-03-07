@@ -2,8 +2,8 @@ const testData = require('../testData.json');
 
 describe('Action: processImage', () => {
     before(() => api.models.Variant.truncate().then(() => Promise.all([
-        api.models.Variant.create({ id: 'A' }),
-        api.models.Variant.create({ id: 'B' }),
+        api.models.Variant.create(testData.variant),
+        api.models.Variant.create(testData.variant2),
         api.tracking.getAll(true),
     ])));
 
@@ -39,9 +39,14 @@ describe('Action: processImage', () => {
     });
 
     it('Properly processes all variants of a request', done => {
-        let params = { apiKey: api.config.general.secretApiKey, url: testData.url, variantIds: ['testvariant', 'testvariant2'] };
-        api.specHelper.runAction('processImage', params, response => {
-            done();
-        });
+        let params = {
+            apiKey: api.config.general.secretApiKey,
+            url: testData.url,
+            variantIds: [
+                testData.variant.id,
+                testData.variant2.id,
+            ]
+        };
+        api.specHelper.runAction('processImage', params, () => done());
     });
 });

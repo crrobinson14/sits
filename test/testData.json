@@ -6,7 +6,7 @@
         "id": "testvariant",
         "transforms": "-geometry 120x70^ -gravity center -extent 120x70"
     },
-    "variant1": {
+    "variant2": {
         "id": "testvariant2",
         "transforms": "-geometry 40x30^ -gravity center -extent 40x30"
     }

@@ -56,8 +56,6 @@ class Image {
         let hash = this.hashUrl(url, variantId),
             path = this.assetPath(hash);
 
-        console.log(url, path, hash);
-
         return accessAsync(path, fs.constants.R_OK)
             .then(() => path)
             .catch(() => this.downloadAndProcess(url, variantId, path));
