@@ -1,10 +1,14 @@
-module.exports.default = {
-    tasks: () => ({
-        scheduler: false,
-        queues: ['*'],
-        timeout: 5000,
-        minTaskProcessors: 0,
-        maxTaskProcessors: 0,
-        checkTimeout: 500,
-    })
+module.exports = {
+    default: {
+        tasks: () => ({
+            scheduler: true,
+            queues: ['*'],
+            minTaskProcessors: 1,
+            maxTaskProcessors: 1,
+        })
+    },
+
+    test: {
+        tasks: () => ({ scheduler: false })
+    }
 };

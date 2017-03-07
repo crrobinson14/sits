@@ -25,6 +25,7 @@
   "dependencies": {
     "actionhero": "^16.0.2",
     "bluebird": "^3.4.7",
+    "find-remove": "^1.0.0",
     "gm": "^1.23.0",
     "request": "^2.79.0",
     "sequelize": "^3.30.2",
