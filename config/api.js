@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports.default = {
+exports.default = {
     general: api => {
         const packageJSON = require(api.projectRoot + path.sep + 'package.json');
 
@@ -8,6 +8,7 @@ module.exports.default = {
             apiVersion: packageJSON.version,
             serverName: packageJSON.name,
             serverToken: 'sits-change-me',
+            secretApiKey: 'CHANGEME',
             developmentMode: true,
             paths: {
                 'action': [path.join(__dirname, '/../actions')],
@@ -20,8 +21,6 @@ module.exports.default = {
                 'plugin': [path.join(__dirname, '/../node_modules')],
                 'locale': [path.join(__dirname, '/../locales')]
             },
-
-            secretApiKey: 'CHANGEME',
         }
     }
 };

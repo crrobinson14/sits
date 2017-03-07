@@ -5,7 +5,7 @@ exports.task = {
     name: 'expireFiles',
     description: 'Clean up old files.',
     queue: 'default',
-    frequency: 5 * 60,
+    frequency: 30 * 60 * 1000,
     run: (api, params, next) => {
         let result = findRemoveSync(api.config.image.storage, {
             maxLevel: 2,

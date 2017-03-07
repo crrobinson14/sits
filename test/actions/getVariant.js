@@ -16,13 +16,13 @@ describe('Action: getVariant', () => {
     it('Requires an ID', done => {
         let params = { apiKey: api.config.general.secretApiKey, transforms: 'x' };
         api.specHelper.runAction('getVariant', params, response => {
-            expect(response.error).to.equal('Error: id is a required parameter for this action');
+            expect(response.error).to.equal('Error: variantId is a required parameter for this action');
             done();
         });
     });
 
     it('Tolerates/reports requests to delete non-existent variants', done => {
-        let params = Object.assign({}, { id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
+        let params = Object.assign({}, { variantId: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('getVariant', params, response => {
             expect(response.error).to.equal('Error: Database error: Invalid variant (-)');
             done();
@@ -32,7 +32,7 @@ describe('Action: getVariant', () => {
     it('Can get a variant', done => {
         let uparams = Object.assign({}, testData.variant, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('createVariant', uparams, response => {
-            let gparams = Object.assign({}, { id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
+            let gparams = Object.assign({}, { variantId: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
             api.specHelper.runAction('getVariant', gparams, response => {
                 expect(response.variant.id).to.equal(testData.variant.id);
                 expect(response.variant.transforms).to.equal(testData.variant.transforms);
