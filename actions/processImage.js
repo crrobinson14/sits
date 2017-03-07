@@ -1,18 +1,20 @@
 exports.action = {
     name: 'processImage',
-    description: 'My Action',
-    blockedConnectionTypes: [],
-    outputExample: {},
-    matchExtensionMimeType: false,
-    version: 1.0,
-    toDocument: true,
-    middleware: [],
-
-    inputs: {},
-
+    description: 'Process and store an image using all specified variants. May overwrite existing files.',
+    blockedConnectionTypes: ['websocket'],
+    sitsOptions: { checkApiKey: true },
+    inputs: {
+        url: {
+            required: true,
+        },
+        variantIds: {
+            required: true,
+            validator: (p, conn, tmpl) => (Array.isArray(p) && p.length > 0) || 'must be non-empty array',
+        },
+    },
     run: function(api, data, next) {
-        let error = null
-        // your logic here
-        next(error)
+        Promise.all(data.params.variantIds, variantId => api.image.convert(data.params.url, variantId))
+            .then(() => next())
+            .catch(e => next(e));
     }
-}
+};
