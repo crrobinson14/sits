@@ -11,6 +11,7 @@ module.exports.default = {
 
         post: [
             { path: '/variants', action: 'createVariant' },
+            { path: '/image', action: 'processImage' },
         ],
 
         put: [

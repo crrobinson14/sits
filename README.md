@@ -22,14 +22,14 @@ that the images work and do not look broken.
 
 Assume an original image, available via an HTTP URL:
 
-![Original Image](https://raw.github.com/crrobinson14/actionhero/master/docs/original.png)
+![Original Image](https://github.com/crrobinson14/sits/raw/master/docs/original.png)
 
 The classic thumbnailing approach uses a formatted URL to access a
 thumbnailing service and generate a variant of the original image. For
 example, we might ask our thumbnail service to create a 90x60
 scale-and-crop version of the original 100x100 source file:
 
-![Classic Approach](https://raw.github.com/crrobinson14/actionhero/master/docs/classic.png)
+![Classic Approach](https://github.com/crrobinson14/actionhero/master/docs/classic.png)
 
 However, this naive approach has some problems. The most important is that
 it is easy to DDoS such a service - an attacker can simply ask for every
@@ -46,7 +46,7 @@ hitting our servers will have slower experiences, as they are the ones
 try to script this, but then we have to know every possible size ahead
 of time. What if we miss one?
 
-![Signed URLs](https://raw.github.com/crrobinson14/actionhero/master/docs/signed.png)
+![Signed URLs](https://github.com/crrobinson14/actionhero/master/docs/signed.png)
 
 The typical "next step," supported in Thumbor and most other options, is
 to "sign" our URLs. This addresses the DDoS risk by only allowing pre-
@@ -54,7 +54,7 @@ approved operations... but falls short of addressing the entire issue.
 It's also clumsy to implement because we need code changes in both our
 servers and clients. What to do?
 
-![Variant Approach](https://raw.github.com/crrobinson14/actionhero/master/docs/signed.png)
+![Variant Approach](https://github.com/crrobinson14/actionhero/master/docs/signed.png)
 
 Finally, we arrive at the variant-based approach, which is also used in
 Drupal's "Image Styles" module but we're delivering here as a packaged
@@ -108,6 +108,12 @@ defaults for QA, Production, etc. See [ActionHero
 Config](https://www.actionherojs.com/docs/core/#config)
 for an in-depth guide to configuring ActionHero-based projects.
 
+> *IMPORTANT NOTE:* This version of SITS uses a simple SQLite local
+database file and the FakeRedis module for demonstration purposes.
+These settings are also easily changed via config parameters... but
+until you do, data may be lost between test/run passes, and only a single
+node should be run at a time!
+
 As shown in the example above, image transformations are just a list of
 GraphicsMagick options. All operations are technically available here
 but only a subset actually make sense. Please refer to the [GraphicsMagick
@@ -149,8 +155,6 @@ We can also retrieve a single variant by its ID:
 
 produces:
 
-would now output:
-
     {
       "variants": [
         {
@@ -158,12 +162,21 @@ would now output:
           "transforms": "-geometry 120x70^ -gravity center -extent 120x70",
           "createdAt": "2017-03-07T05:47:25.395Z",
           "updatedAt": "2017-03-07T05:47:25.395Z"
-        },
-        {
-          "id": "widethumb",
-          "transforms": "-geometry 120x67^ -gravity north -extent 120x67",
-          "createdAt": "2017-03-07T05:49:32.691Z",
-          "updatedAt": "2017-03-07T05:49:32.691Z"
         }
       ]
     }
+
+`PUT` and `DELETE` requests may similarly be used to update (change
+the transforms) and remove existing variants.
+
+Once variants are made, images may be accessed as follows (assuming you
+have `imgcat` installed):
+
+    curl http://localhost:8080/api/image/mediumthumb/http%3A%2F%2Fplacehold.it%2F100x100.png%3Ftext%3DTEST | imgcat
+
+Or you can choose to pre-generate images for users to retrieve later:
+
+    curl http://localhost:8080/api/image/mediumthumb/http%3A%2F%2Fplacehold.it%2F100x100.png%3Ftext%3DTEST | imgcat
+
+Simple usage statistics are also available:
+

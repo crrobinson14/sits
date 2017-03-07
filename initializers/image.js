@@ -24,7 +24,7 @@ class Image {
     // Get the filesystem storage path for a given hash object
     //noinspection JSMethodCanBeStatic
     assetPath(hash) {
-        return path.join(api.config.image.storage, hash.substring(0, 1), hash + '.jpg');
+        return path.join(this.api.config.image.storage, hash.substring(0, 1), hash + '.jpg');
     }
 
     // Make sure a variant is valid, track a hit against it, and return its data
