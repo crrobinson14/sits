@@ -21,7 +21,7 @@ that the images work and do not look broken.
 > Want to see how this project was built? Watch "Code With Me: Image
 Thumbnail Service in NodeJS and ActionHero":
 
-![Pirates!](https://img.youtube.com/vi/a5V5C8mEVzY/0.jpg)](https://www.youtube.com/watch?v=a5V5C8mEVzY "Pirates!")
+![Pirates!](https://img.youtube.com/vi/a5V5C8mEVzY/0.jpg)(https://www.youtube.com/watch?v=a5V5C8mEVzY "Pirates!")
 
 ## Overview and Requirements
 

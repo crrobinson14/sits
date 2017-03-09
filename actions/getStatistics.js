@@ -1,7 +1,7 @@
 exports.action = {
     name: 'getStatistics',
     description: 'Get the saved usage statistics.',
-    sitsOptions: { checkApiKey: true },
+    middleware: ['requireAPIKey'],
     inputs: {
         clear: { required: false },
     },

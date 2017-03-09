@@ -2,7 +2,7 @@ exports.action = {
     name: 'processImage',
     description: 'Process and store an image using all specified variants. May overwrite existing files.',
     blockedConnectionTypes: ['websocket'],
-    sitsOptions: { checkApiKey: true },
+    middleware: ['requireAPIKey'],
     inputs: {
         url: {
             required: true,

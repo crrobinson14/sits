@@ -1,7 +1,7 @@
 exports.action = {
     name: 'createVariant',
     description: 'Create a thumbnail variant.',
-    sitsOptions: { checkApiKey: true },
+    middleware: ['requireAPIKey'],
     inputs: {
         id: { required: true },
         transforms: { required: true },

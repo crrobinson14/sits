@@ -1,7 +1,7 @@
 exports.action = {
     name: 'getVariant',
     description: 'Get a single variant.',
-    sitsOptions: { checkApiKey: true },
+    middleware: ['requireAPIKey'],
     inputs: {
         variantId: { required: true },
     },

@@ -1,7 +1,7 @@
 exports.action = {
     name: 'deleteVariant',
     description: 'Delete a thumbnail variant.',
-    sitsOptions: { checkApiKey: true },
+    middleware: ['requireAPIKey'],
     inputs: {
         id: { required: true },
     },

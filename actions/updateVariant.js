@@ -1,7 +1,7 @@
 exports.action = {
     name: 'updateVariant',
     description: 'Update a thumbnail variant.',
-    sitsOptions: { checkApiKey: true },
+    middleware: ['requireAPIKey'],
     inputs: {
         id: { required: true },
         transforms: { required: true },
