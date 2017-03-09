@@ -1,10 +1,14 @@
 const Sequelize = require('sequelize');
-const DataTypes = Sequelize.DataTypes;
 
 // We only need one model for now
 const VariantModel = (db) => db.define('variant', {
-    id: { type: DataTypes.STRING, primaryKey: true },
-    transforms: { type: DataTypes.STRING },
+    id: {
+        type: Sequelize.DataTypes.STRING,
+        primaryKey: true
+    },
+    transforms: {
+        type: Sequelize.DataTypes.STRING
+    },
 });
 
 class DB {
@@ -15,6 +19,10 @@ class DB {
         this.models = api.models = {
             Variant: VariantModel(this.sequelize),
         };
+
+        api.db.sequelize.sync({ force: true })
+            .then(() => next())
+            .catch(next);
     }
 
     // Get all current entry IDs.
@@ -40,14 +48,7 @@ class DB {
 
 module.exports = {
     initialize: function(api, next) {
-        if (api.config.secretApiKey === 'CHANGEME') {
-            api.log('You must change config.api.secretApiKey before using this in production!', 'error');
-        }
-
         api.db = new DB(api);
-
-        api.db.sequelize.sync({ force: true })
-            .then(() => next())
-            .catch(next);
+        next();
     }
 };
