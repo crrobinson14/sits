@@ -7,7 +7,7 @@ exports.action = {
         transforms: { required: true },
     },
     run: (api, data, next) => {
-        api.models.Variant.create({
+        api.db.models.Variant.create({
             id: data.params.id,
             transforms: data.params.transforms,
         }).then(result => {

@@ -1,9 +1,9 @@
 const testData = require('../testData.json');
 
 describe('Action: processImage', () => {
-    before(() => api.models.Variant.truncate().then(() => Promise.all([
-        api.models.Variant.create(testData.variant),
-        api.models.Variant.create(testData.variant2),
+    before(() => api.db.models.Variant.truncate().then(() => Promise.all([
+        api.db.models.Variant.create(testData.variant),
+        api.db.models.Variant.create(testData.variant2),
         api.tracking.getAll(true),
     ])));
 

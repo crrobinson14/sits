@@ -16,6 +16,6 @@ exports.action = {
                 return variant.update({ transforms: data.params.transforms });
             })
             .then(next)
-            .catch(e => api.db.reportActionError(next, e));
+            .catch(next);
     }
 };

@@ -1,7 +1,7 @@
 const testData = require('../testData.json');
 
 describe('Action: createVariant', () => {
-    const clearData = () => api.models.Variant.truncate();
+    const clearData = () => api.db.models.Variant.truncate();
 
     before(clearData);
     after(clearData);

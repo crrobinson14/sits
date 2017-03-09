@@ -2,8 +2,8 @@ const request = require('request'),
     testData = require('../testData.json');
 
 describe('Action: getImage', () => {
-    before(() => api.models.Variant.truncate()
-        .then(() => api.models.Variant.create(testData.variant)));
+    before(() => api.db.models.Variant.truncate()
+        .then(() => api.db.models.Variant.create(testData.variant)));
 
     it('Properly processes image requests', done => {
         let url = [

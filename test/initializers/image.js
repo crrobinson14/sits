@@ -3,8 +3,8 @@ const path = require('path'),
 
 describe('Initializer: Image', () => {
     before(() =>
-        api.models.Variant.truncate().then(() =>
-            api.models.Variant.create(testData.variant)));
+        api.db.models.Variant.truncate().then(() =>
+            api.db.models.Variant.create(testData.variant)));
 
     it('Properly hashes URL:variant combinations', done => {
         let hash = api.image.hashUrl(testData.url, testData.variant.id);

@@ -1,7 +1,7 @@
 const testData = require('../testData.json');
 
 describe('Action: getVariant', () => {
-    const clearData = () => api.models.Variant.truncate();
+    const clearData = () => api.db.models.Variant.truncate();
 
     before(clearData);
     after(clearData);
@@ -24,7 +24,7 @@ describe('Action: getVariant', () => {
     it('Tolerates/reports requests to delete non-existent variants', done => {
         let params = Object.assign({}, { variantId: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
         api.specHelper.runAction('getVariant', params, response => {
-            expect(response.error).to.equal('Error: Database error: Invalid variant (-)');
+            expect(response.error).to.equal('Error: Invalid variant');
             done();
         });
     });

@@ -4,10 +4,10 @@ exports.action = {
     middleware: ['requireAPIKey'],
     inputs: {},
     run: (api, data, next) => {
-        api.models.Variant.findAll({ order: ['id'] }).then(variants => {
+        api.db.models.Variant.findAll({ order: ['id'] }).then(variants => {
             data.response.variants = (variants || []).map(variant => variant.get({ plain: true }));
             next();
 
-        }).catch(e => api.db.reportActionError(next, e));
+        }).catch(next);
     }
 };

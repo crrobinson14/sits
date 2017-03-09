@@ -6,7 +6,7 @@ const processAPIKey = (data, next) => {
 
 module.exports = {
     initialize: (api, next) => {
-        if (api.config.secretApiKey === 'CHANGEME') {
+        if (api.config.general.secretApiKey === 'CHANGEME') {
             api.log('You must change config.api.secretApiKey before using this in production!', 'error');
         }
 

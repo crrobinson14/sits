@@ -1,7 +1,7 @@
 describe('Initializer: Tracking', () => {
-    before(() => api.models.Variant.truncate().then(() => Promise.all([
-        api.models.Variant.create({ id: 'A' }),
-        api.models.Variant.create({ id: 'B' }),
+    before(() => api.db.models.Variant.truncate().then(() => Promise.all([
+        api.db.models.Variant.create({ id: 'A' }),
+        api.db.models.Variant.create({ id: 'B' }),
         api.tracking.getAll(true),
     ])));
 
