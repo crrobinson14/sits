@@ -26,15 +26,10 @@ class DB {
         return this.models.Variant.findAll({ attributes: ['id'] })
             .then(entries => entries.map(entry => entry.id));
     }
-
-    // Get a variant's record by its ID
-    getVariant(id) {
-        return this.models.Variant.findById(id);
-    }
 }
 
 module.exports = {
-    initialize: function(api, next) {
+    initialize: (api, next) => {
         api.db = new DB(api, next);
     }
 };

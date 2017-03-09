@@ -6,7 +6,7 @@ exports.action = {
         variantId: { required: true },
     },
     run: (api, data, next) => {
-        api.db.getVariant(data.params.variantId).then(variant => {
+        api.db.models.Variant.findById(data.params.variantId).then(variant => {
             if (!variant) {
                 throw new Error('Invalid variant');
             }

@@ -34,7 +34,7 @@ describe('Action: deleteVariant', () => {
         api.specHelper.runAction('createVariant', cparams, () => {
             let dparams = Object.assign({}, { id: testData.variant.id }, { apiKey: api.config.general.secretApiKey });
             api.specHelper.runAction('deleteVariant', dparams, () => {
-                api.db.getVariant(testData.variant.id).then(testRecord => {
+                api.db.models.Variant.findById(testData.variant.id).then(testRecord => {
                     expect(testRecord).to.be.null();
                     done();
                 });

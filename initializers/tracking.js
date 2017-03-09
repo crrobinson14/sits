@@ -2,9 +2,11 @@ const Promise = require('bluebird'),
     prefix = 'variantusage:';
 
 class Tracking {
-    constructor(api) {
+    constructor(api, next) {
         this.api = api;
         this.redis = Promise.promisifyAll(api.redis.clients.client);
+
+        next();
     }
 
     // Record a call to a variant
@@ -12,6 +14,7 @@ class Tracking {
         return this.redis.incrAsync(prefix + variantId);
     }
 
+    // Get an individual stat, optionally clearing it as well
     getStat(variantId, clear) {
         let call = clear
             ? this.redis.getsetAsync(api.config.tracking.variantPrefix + variantId, 0)
@@ -29,8 +32,7 @@ class Tracking {
 }
 
 module.exports = {
-    initialize: function(api, next) {
-        api.tracking = new Tracking(api);
-        next();
+    initialize: (api, next) => {
+        api.tracking = new Tracking(api, next);
     }
 };

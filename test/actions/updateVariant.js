@@ -34,7 +34,7 @@ describe('Action: updateVariant', () => {
         api.specHelper.runAction('createVariant', uparams, response => {
             let dparams = Object.assign({}, { id: testData.variant.id, transforms: 'XYZ' }, { apiKey: api.config.general.secretApiKey });
             api.specHelper.runAction('updateVariant', dparams, response => {
-                api.db.getVariant(testData.variant.id).then(testRecord => {
+                api.db.models.Variant.findById(testData.variant.id).then(testRecord => {
                     expect(testRecord.transforms).to.equal('XYZ');
                     done();
                 });
