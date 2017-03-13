@@ -7,7 +7,7 @@ describe('Initializer: Image', () => {
             api.db.models.Variant.create(testData.variant)));
 
     it('Can download and transform files', () => {
-        let outputPath = path.join(api.config.image.storage, testData.path);
+        let outputPath = path.join(api.config.store.storage, testData.path);
         return api.image.downloadVariant(testData.url, testData.variant.id, outputPath);
     });
 });

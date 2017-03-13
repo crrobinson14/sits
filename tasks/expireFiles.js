@@ -7,10 +7,10 @@ exports.task = {
     queue: 'default',
     frequency: 30 * 60 * 1000,
     run: (api, params, next) => {
-        let result = findRemoveSync(api.config.image.storage, {
+        let result = findRemoveSync(api.config.store.storage, {
             maxLevel: 2,
             extensions: '.jpg',
-            age: { seconds: api.config.image.expiration },
+            age: { seconds: api.config.store.expiration },
         });
 
         next(null, 'Expired ' + Object.keys(result || {}).length + ' image files.');

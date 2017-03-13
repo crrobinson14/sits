@@ -7,7 +7,7 @@ exports.default = {
         return {
             apiVersion: packageJSON.version,
             serverName: packageJSON.name,
-            serverToken: 'sits-change-me',
+            serverToken: 'thumbsvc-change-me',
             secretApiKey: 'CHANGEME',
             developmentMode: true,
             paths: {

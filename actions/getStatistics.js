@@ -6,10 +6,11 @@ exports.action = {
         clear: { required: false },
     },
     run: function(api, data, next) {
-        api.tracking.getAll(data.params.clear === true).then(res => {
-            data.response.usage = res;
-            next();
+        api.tracking.getAll(data.params.clear === true)
+            .then(res => {
+                data.response.usage = res;
+                next();
 
-        }).catch(e => new Error(e.message));
+            }).catch(e => new Error(e.message));
     }
 };

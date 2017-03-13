@@ -8,7 +8,7 @@ describe('Initializer: Store', () => {
 
     it('Properly calculates asset paths', done => {
         let path = api.store.assetPath(testData.url, testData.variant.id);
-        expect(path).to.equal(require('path').join(api.config.image.storage, testData.path));
+        expect(path).to.equal(require('path').join(api.config.store.storage, testData.path));
         done();
     });
 });
