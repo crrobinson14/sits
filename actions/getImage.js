@@ -10,7 +10,7 @@ exports.action = {
         let connection = data.connection,
             server = api.servers.servers[connection.type];
 
-        api.image.convert(data.params.url, data.params.variantId).then(path => {
+        api.store.get(data.params.url, data.params.variantId).then(path => {
             connection.params.file = path;
             server.processFile(connection);
             // NOTE: No next() callback is needed here because processFile destroys the connection.

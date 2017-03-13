@@ -7,13 +7,16 @@ exports.action = {
         transforms: { required: true },
     },
     run: (api, data, next) => {
-        api.db.models.Variant.create({
+        let record = {
             id: data.params.id,
             transforms: data.params.transforms,
-        }).then(result => {
-            data.response.variant = result.get({ plain: true });
-            next();
+        };
 
-        }).catch(e => next(e));
+        api.db.models.Variant.create(record)
+            .then(result => {
+                data.response.variant = result.get({ plain: true });
+                next();
+
+            }).catch(e => next(e));
     }
 };
